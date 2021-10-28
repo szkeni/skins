@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ChampionCard from "./championCard";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      champs: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch(
+      "http://ddragon.leagueoflegends.com/cdn/11.21.1/data/en_US/champion.json"
+    ).then(async (res) => {
+      const response = await res.json();
+      this.setState({ champs: Object.keys(response.data) }); 
+    });
+  }
+
+  render() {
+    return (
+      <>
+      {this.state.champs && this.state.champs.map((champ, i) => <ChampionCard key={`championcard-${i}`} champName={champ} />)}
+      </>
+    );
+  }
 }
-
-export default App;
