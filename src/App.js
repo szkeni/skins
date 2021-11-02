@@ -15,14 +15,20 @@ export default class App extends Component {
       "http://ddragon.leagueoflegends.com/cdn/11.21.1/data/en_US/champion.json"
     ).then(async (res) => {
       const response = await res.json();
-      this.setState({ champs: Object.keys(response.data) }); 
+      this.setState({ champs: Object.keys(response.data) });
     });
   }
 
   render() {
     return (
       <>
-      {this.state.champs && this.state.champs.map((champ, i) => <ChampionCard key={`championcard-${i}`} champName={champ} />)}
+        {this.state.champs &&
+          this.state.champs.map((champ, i) => {
+            if (champ === "Fiddlesticks") {
+              return null
+            }
+            return <ChampionCard key={`championcard-${i}`} champName={champ} />;
+          })}
       </>
     );
   }
