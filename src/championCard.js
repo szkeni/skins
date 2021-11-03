@@ -41,8 +41,8 @@ export default class ChampionCard extends Component {
                     this.props.champName +
                     `_${skin.num}.jpg`
                   }
-                  alt={this.props.champName}
-                  title={this.props.champName}
+                  alt={skin.name}
+                  title={skin.name}
                   width={50}
                 />
                 <span>{skin.name}</span>
